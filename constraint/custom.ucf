@@ -1,0 +1,8 @@
+NET "playerAa<0>" LOC = P1 | IOSTANDARD = LVTTL;
+NET "playerAa<1>" LOC = P5 | IOSTANDARD = LVTTL;
+NET "playerAb<0>" LOC = P7 | IOSTANDARD = LVTTL;
+NET "playerAb<1>" LOC = P9 | IOSTANDARD = LVTTL;
+NET "playerAi<0>" LOC = P16 | IOSTANDARD = LVTTL;
+NET "playerAi<1>" LOC = P21 | IOSTANDARD = LVTTL;
+NET "playerAenter" LOC = P23 | IOSTANDARD = LVTTL;
+NET "start" LOC = P34 | IOSTANDARD = LVTTL;
