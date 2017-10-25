@@ -1,19 +1,19 @@
 module random_generator (
     input clk,  // clock
     input rst,  // reset
-    output a[2],
-    output b[2]
+    output a[4],
+    output b[4]
   ) {
   
   .clk(clk) {
     .rst(rst) {
-      dff counter[25];
+      dff counter[30];
     }
   }
 
   always {
     counter.d = counter.q + 1;
-    a  = counter.q[23:22];
-    b = counter.q[21:20];
+    a  = counter.q[23:20];
+    b = counter.q[27:24];
   }
 }

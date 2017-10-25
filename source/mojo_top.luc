@@ -11,15 +11,17 @@ module mojo_top (
     input avr_tx,           // AVR TX (FPGA RX)
     output avr_rx,          // AVR RX (FPGA TX)
     input avr_rx_busy,       // AVR RX buffer full
-    output playerAa[2],     // player A's binary a
-    output playerAb[2],     // player A's binary b
-    input playerAi[2],
-    output playerBa[2],
-    output playerBb[2],
-    input playerBi[2],
+    output playerAa[4],     // player A's binary a
+    output playerAb[4],     // player A's binary b
+    input playerAi[4],
+    output playerBa[4],
+    output playerBb[4],
+    input playerBi[4],
     input playerAenter,
     input playerBenter,
-    input start
+    input start,
+    output playerAqueue[7],
+    output playerBqueue[7]
   ) {
   
   sig rst;                  // reset signal
@@ -39,12 +41,12 @@ module mojo_top (
     edge_detector edge_detector1(#RISE(1), #FALL(0)); // detect rising edges
     .rst(rst) {
       random_generator random_generator;
-      dff aa[2];
-      dff ab[2];
-      dff ba[2];
-      dff bb[2];
-      dff aqueue[2];
-      dff bqueue[2];
+      dff aa[4];
+      dff ab[4];
+      dff ba[4];
+      dff bb[4];
+      dff aqueue[3];
+      dff bqueue[3];
     }
     
   }
@@ -59,6 +61,10 @@ module mojo_top (
     spi_channel = bzzzz;    // not using flags
     avr_rx = bz;            // not using serial port
     
+    // show queue
+    playerAqueue = 8b0;
+    playerBqueue = 8b0;
+    
     playerAenterCond.in = playerAenter;
     edge_detector.in = playerAenterCond.out;
     aenter = edge_detector.out;
@@ -72,8 +78,8 @@ module mojo_top (
     st = startCond.out;
     
     if (st) {
-      aqueue.d = 1;
-      bqueue.d = 1;
+      aqueue.d = 3;
+      bqueue.d = 3;
       aa.d = random_generator.a;
       ab.d = random_generator.b;
       
@@ -114,11 +120,11 @@ module mojo_top (
     }
     
     for (i = 0; i < aqueue.q; i++) {
-      led[i] = 1; 
+      playerAqueue[i] = 1; 
     }
     
     for (i = 0; i < bqueue.q; i++) {
-      led[i + 4] = 1; 
+      playerBqueue[i] = 1; 
     }
   }
 }

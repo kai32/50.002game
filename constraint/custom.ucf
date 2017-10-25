@@ -1,16 +1,53 @@
-NET "playerAa<0>" LOC = P1 | IOSTANDARD = LVTTL;
-NET "playerAa<1>" LOC = P5 | IOSTANDARD = LVTTL;
-NET "playerAb<0>" LOC = P7 | IOSTANDARD = LVTTL;
-NET "playerAb<1>" LOC = P9 | IOSTANDARD = LVTTL;
-NET "playerAi<0>" LOC = P16 | IOSTANDARD = LVTTL;
-NET "playerAi<1>" LOC = P21 | IOSTANDARD = LVTTL;
-NET "playerAenter" LOC = P23 | IOSTANDARD = LVTTL;
-NET "start" LOC = P34 | IOSTANDARD = LVTTL;
+NET "playerAa<0>" LOC = P127 | IOSTANDARD = LVTTL;
+NET "playerAa<1>" LOC = P126 | IOSTANDARD = LVTTL;
+NET "playerAa<2>" LOC = P124 | IOSTANDARD = LVTTL;
+NET "playerAa<3>" LOC = P123 | IOSTANDARD = LVTTL;
 
-NET "playerBa<0>" LOC = P2 | IOSTANDARD = LVTTL;
-NET "playerBa<1>" LOC = P6 | IOSTANDARD = LVTTL;
-NET "playerBb<0>" LOC = P8 | IOSTANDARD = LVTTL;
-NET "playerBb<1>" LOC = P10 | IOSTANDARD = LVTTL;
-NET "playerBi<0>" LOC = P29 | IOSTANDARD = LVTTL;
-NET "playerBi<1>" LOC = P32 | IOSTANDARD = LVTTL;
-NET "playerBenter" LOC = P26 | IOSTANDARD = LVTTL;
+NET "playerAb<0>" LOC = P134 | IOSTANDARD = LVTTL;
+NET "playerAb<1>" LOC = P133 | IOSTANDARD = LVTTL;
+NET "playerAb<2>" LOC = P132 | IOSTANDARD = LVTTL;
+NET "playerAb<3>" LOC = P131 | IOSTANDARD = LVTTL;
+
+NET "playerAi<0>" LOC = P12 | IOSTANDARD = LVTTL;
+NET "playerAi<1>" LOC = P10 | IOSTANDARD = LVTTL;
+NET "playerAi<2>" LOC = P8 | IOSTANDARD = LVTTL;
+NET "playerAi<3>" LOC = P6 | IOSTANDARD = LVTTL;
+
+NET "playerAenter" LOC = P2 | IOSTANDARD = LVTTL;
+
+NET "start" LOC = P15 | IOSTANDARD = LVTTL;
+
+NET "playerBa<0>" LOC = P51 | IOSTANDARD = LVTTL;
+NET "playerBa<1>" LOC = P50 | IOSTANDARD = LVTTL;
+NET "playerBa<2>" LOC = P41 | IOSTANDARD = LVTTL;
+NET "playerBa<3>" LOC = P40 | IOSTANDARD = LVTTL;
+
+NET "playerBb<0>" LOC = P35 | IOSTANDARD = LVTTL;
+NET "playerBb<1>" LOC = P34 | IOSTANDARD = LVTTL;
+NET "playerBb<2>" LOC = P33 | IOSTANDARD = LVTTL;
+NET "playerBb<3>" LOC = P32 | IOSTANDARD = LVTTL;
+
+
+NET "playerBi<0>" LOC = P30 | IOSTANDARD = LVTTL;
+NET "playerBi<1>" LOC = P27 | IOSTANDARD = LVTTL;
+NET "playerBi<2>" LOC = P24 | IOSTANDARD = LVTTL;
+NET "playerBi<3>" LOC = P22 | IOSTANDARD = LVTTL;
+
+
+NET "playerBenter" LOC = P17 | IOSTANDARD = LVTTL;
+
+NET "playerAqueue<0>" LOC= P87 | IOSTANDARD = LVTTL;
+NET "playerAqueue<1>" LOC= P92 | IOSTANDARD = LVTTL;
+NET "playerAqueue<2>" LOC= P94 | IOSTANDARD = LVTTL;
+NET "playerAqueue<3>" LOC= P97 | IOSTANDARD = LVTTL;
+NET "playerAqueue<4>" LOC= P99 | IOSTANDARD = LVTTL;
+NET "playerAqueue<5>" LOC= P101 | IOSTANDARD = LVTTL;
+NET "playerAqueue<6>" LOC= P104 | IOSTANDARD = LVTTL;
+
+NET "playerBqueue<0>" LOC= P84 | IOSTANDARD = LVTTL;
+NET "playerBqueue<1>" LOC= P82 | IOSTANDARD = LVTTL;
+NET "playerBqueue<2>" LOC= P80 | IOSTANDARD = LVTTL;
+NET "playerBqueue<3>" LOC= P78 | IOSTANDARD = LVTTL;
+NET "playerBqueue<4>" LOC= P74 | IOSTANDARD = LVTTL;
+NET "playerBqueue<5>" LOC= P66 | IOSTANDARD = LVTTL;
+NET "playerBqueue<6>" LOC= P57 | IOSTANDARD = LVTTL;
