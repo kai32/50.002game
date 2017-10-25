@@ -4,6 +4,7 @@
     <src>alu.luc</src>
     <src>boolean.luc</src>
     <src>mul.luc</src>
+    <src>random_generator.luc</src>
     <src>shifter.luc</src>
     <src>addsub.luc</src>
     <src>trigger.luc</src>

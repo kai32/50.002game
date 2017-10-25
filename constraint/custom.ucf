@@ -6,3 +6,11 @@ NET "playerAi<0>" LOC = P16 | IOSTANDARD = LVTTL;
 NET "playerAi<1>" LOC = P21 | IOSTANDARD = LVTTL;
 NET "playerAenter" LOC = P23 | IOSTANDARD = LVTTL;
 NET "start" LOC = P34 | IOSTANDARD = LVTTL;
+
+NET "playerBa<0>" LOC = P2 | IOSTANDARD = LVTTL;
+NET "playerBa<1>" LOC = P6 | IOSTANDARD = LVTTL;
+NET "playerBb<0>" LOC = P8 | IOSTANDARD = LVTTL;
+NET "playerBb<1>" LOC = P10 | IOSTANDARD = LVTTL;
+NET "playerBi<0>" LOC = P29 | IOSTANDARD = LVTTL;
+NET "playerBi<1>" LOC = P32 | IOSTANDARD = LVTTL;
+NET "playerBenter" LOC = P26 | IOSTANDARD = LVTTL;

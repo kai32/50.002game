@@ -14,13 +14,19 @@ module mojo_top (
     output playerAa[2],     // player A's binary a
     output playerAb[2],     // player A's binary b
     input playerAi[2],
+    output playerBa[2],
+    output playerBb[2],
+    input playerBi[2],
     input playerAenter,
+    input playerBenter,
     input start
   ) {
   
   sig rst;                  // reset signal
   sig aenter;
   sig st;
+  var i;
+  sig benter;
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
@@ -28,12 +34,17 @@ module mojo_top (
     reset_conditioner reset_cond;
     button_conditioner playerAenterCond;
     button_conditioner startCond;
+    button_conditioner playerBenterCond;
     edge_detector edge_detector(#RISE(1), #FALL(0)); // detect rising edges
+    edge_detector edge_detector1(#RISE(1), #FALL(0)); // detect rising edges
     .rst(rst) {
-      dff counter[25];
+      random_generator random_generator;
       dff aa[2];
       dff ab[2];
-      dff alife[3];
+      dff ba[2];
+      dff bb[2];
+      dff aqueue[2];
+      dff bqueue[2];
     }
     
   }
@@ -51,35 +62,63 @@ module mojo_top (
     playerAenterCond.in = playerAenter;
     edge_detector.in = playerAenterCond.out;
     aenter = edge_detector.out;
+    
+    playerBenterCond.in = playerBenter;
+    edge_detector1.in = playerBenterCond.out;
+    benter = edge_detector1.out;
      
     
     startCond.in = start;
     st = startCond.out;
     
-    counter.d = counter.q + 1;
-    
     if (st) {
-      alife.d = 3;
-      aa.d = counter.q[24:23];
-      ab.d = counter.q[22:21];
+      aqueue.d = 1;
+      bqueue.d = 1;
+      aa.d = random_generator.a;
+      ab.d = random_generator.b;
+      
+      ba.d = random_generator.a;
+      ba.d = random_generator.b;
     } else {
       aa.d =aa.q;
       ab.d = ab.q;
+      
+      ba.d = ba.q;
+      bb.d = bb.q;
     }
 
     playerAa = aa.q;
     playerAb = ab.q;
     
+    playerBa = ba.q;
+    playerBb = bb.q;
+    
     if (aenter) {
       if (playerAi == aa.q + ab.q) {
-        alife.d = alife.q + 1;
+        aqueue.d = aqueue.q - 1;
+        bqueue.d = bqueue.q + 1;
       } else {
-      alife.d = alife.q-1;
+        aqueue.d = aqueue.q+1;
       }
-      aa.d = counter.q[24:23];
-      ab.d = counter.q[22:21];
+      aa.d = random_generator.a;
+      ab.d = random_generator.b;
+    } else if (benter) {
+      if (playerBi == ba.q + bb.q) {
+        aqueue.d = aqueue.q + 1;
+        bqueue.d = bqueue.q - 1;
+      } else {
+        bqueue.d = bqueue.q+1;
+      }
+      ba.d = random_generator.a;
+      bb.d = random_generator.b;
     }
     
-    led = alife.q;
+    for (i = 0; i < aqueue.q; i++) {
+      led[i] = 1; 
+    }
+    
+    for (i = 0; i < bqueue.q; i++) {
+      led[i + 4] = 1; 
+    }
   }
 }
