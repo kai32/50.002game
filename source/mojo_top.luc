@@ -63,8 +63,8 @@ module mojo_top (
     avr_rx = bz;            // not using serial port
     
     // show queue
-    playerAqueue = 8b0;
-    playerBqueue = 8b0;
+    playerAqueue = 7b0;
+    playerBqueue = 7b0;
     
     playerAenterCond.in = playerAenter;
     edge_detector.in = playerAenterCond.out;
@@ -97,7 +97,7 @@ module mojo_top (
           ab.d = random_generator.b;
           
           ba.d = random_generator.a;
-          ba.d = random_generator.b;
+          bb.d = random_generator.b;
           state.d = state.PLAY;
         }
       state.PLAY:
@@ -127,13 +127,35 @@ module mojo_top (
           bb.d = random_generator.b;
         }
         
-        for (i = 0; i < aqueue.q; i++) {
-          playerAqueue[i] = 1; 
+        //for (i = 0; i < aqueue.q; i++) {
+        //  playerAqueue[i] = 1; 
+        //}
+        case(aqueue.q) {
+          0: playerAqueue = 7b0000000;
+          1: playerAqueue = 7b0000001;
+          2: playerAqueue = 7b0000011;
+          3: playerAqueue = 7b0000111;
+          4: playerAqueue = 7b0001111;
+          5: playerAqueue = 7b0011111;
+          6: playerAqueue = 7b0111111;
+          7: playerAqueue = 7b1111111;
+          default: playerAqueue = 7b1111111;
+        }
+        case(bqueue.q) {
+          0: playerBqueue = 7b0000000;
+          1: playerBqueue = 7b0000001;
+          2: playerBqueue = 7b0000011;
+          3: playerBqueue = 7b0000111;
+          4: playerBqueue = 7b0001111;
+          5: playerBqueue = 7b0011111;
+          6: playerBqueue = 7b0111111;
+          7: playerBqueue = 7b1111111;
+          default: playerBqueue = 7b1111111;
         }
         
-        for (i = 0; i < bqueue.q; i++) {
-          playerBqueue[i] = 1; 
-        }
+        //for (i = 0; i < bqueue.q; i++) {
+        //  playerBqueue[i] = 1; 
+        //}
         if (aqueue.q == 7) {
           state.d = state.BWIN;
         } else if (bqueue.q == 7) {
@@ -141,12 +163,21 @@ module mojo_top (
         }
         
      state.AWIN:
-       //wina = 1;
+       playerAa = 4b1111;
+       playerAb = 4b1111;
+       playerBb = 4b0;
+       playerBa = 4b0;
+       playerAqueue = 7b0111110;
        if (st) {
         state.d = state.IDLE;
       }
      state.BWIN:
        //winb = 1;
+       playerBa = 4b1111;
+       playerBb = 4b1111;
+       playerAb = 4b0;
+       playerAa = 4b0;
+       playerBqueue = 7b0111110;
        if (st) {
         state.d = state.IDLE;
       }

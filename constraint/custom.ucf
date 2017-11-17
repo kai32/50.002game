@@ -40,14 +40,14 @@ NET "playerAqueue<0>" LOC= P87 | IOSTANDARD = LVTTL;
 NET "playerAqueue<1>" LOC= P92 | IOSTANDARD = LVTTL;
 NET "playerAqueue<2>" LOC= P94 | IOSTANDARD = LVTTL;
 NET "playerAqueue<3>" LOC= P97 | IOSTANDARD = LVTTL;
-NET "playerAqueue<4>" LOC= P99 | IOSTANDARD = LVTTL;
+NET "playerAqueue<4>" LOC= P104 | IOSTANDARD = LVTTL;
 NET "playerAqueue<5>" LOC= P101 | IOSTANDARD = LVTTL;
-NET "playerAqueue<6>" LOC= P104 | IOSTANDARD = LVTTL;
+NET "playerAqueue<6>" LOC= P99 | IOSTANDARD = LVTTL;
 
 NET "playerBqueue<0>" LOC= P84 | IOSTANDARD = LVTTL;
 NET "playerBqueue<1>" LOC= P82 | IOSTANDARD = LVTTL;
 NET "playerBqueue<2>" LOC= P80 | IOSTANDARD = LVTTL;
 NET "playerBqueue<3>" LOC= P78 | IOSTANDARD = LVTTL;
-NET "playerBqueue<4>" LOC= P74 | IOSTANDARD = LVTTL;
+NET "playerBqueue<4>" LOC= P57 | IOSTANDARD = LVTTL;
 NET "playerBqueue<5>" LOC= P66 | IOSTANDARD = LVTTL;
-NET "playerBqueue<6>" LOC= P57 | IOSTANDARD = LVTTL;
+NET "playerBqueue<6>" LOC= P74 | IOSTANDARD = LVTTL;
