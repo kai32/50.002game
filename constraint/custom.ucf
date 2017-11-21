@@ -51,3 +51,5 @@ NET "playerBqueue<3>" LOC= P78 | IOSTANDARD = LVTTL;
 NET "playerBqueue<4>" LOC= P57 | IOSTANDARD = LVTTL;
 NET "playerBqueue<5>" LOC= P66 | IOSTANDARD = LVTTL;
 NET "playerBqueue<6>" LOC= P74 | IOSTANDARD = LVTTL;
+
+NET "difficulty" LOC= P120 | IOSTANDARD = LVTTL;
