@@ -21,7 +21,8 @@ module mojo_top (
     input playerBenter,
     input start,
     output playerAqueue[7],
-    output playerBqueue[7]
+    output playerBqueue[7],
+    input difficulty
   ) {
   
   sig rst;                  // reset signal
@@ -29,6 +30,9 @@ module mojo_top (
   sig st;
   var i;
   sig benter;
+  sig msb;
+  sig smp;
+  alu alu;
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
@@ -48,6 +52,11 @@ module mojo_top (
       dff aqueue[3];
       dff bqueue[3];
       fsm state = {IDLE, PLAY, AWIN, BWIN};
+      dff msbCounter[4];
+      dff smCounter[4];
+      dff bexpected[4];
+      dff aexpected[4];
+      
     }
     
   }
@@ -87,10 +96,47 @@ module mojo_top (
     //wina = 0;
     //winb = 0;
     
+    alu.a = 8b0;
+    alu.b = 8b0;
+    alu.alufn = 6b0;
     
+    // set up msb
+    msbCounter.d = msbCounter.q + 1;
+    msb = msbCounter.q[3];
+    
+    // set up persistence for start
+
+    smCounter.d = smCounter.q << 1;
+ 
+    smp = (smCounter.q != 4b0);
+    
+    bexpected.d = bexpected.q;
+    aexpected.d = aexpected.q;
+ 
+    if (msb) { // compute for b
+      alu.a = c{4b0000, bb.q};
+      alu.b = c{4b0, ba.q};
+      if (difficulty) {
+        alu.alufn = 6b011110;
+      } else{
+        alu.alufn = 6b000000;
+      }
+      bexpected.d = alu.out[3:0];
+    } else {
+      alu.a = c{4b0000, ab.q};
+      alu.b = c{4b0, aa.q};
+      if (difficulty) {
+        alu.alufn = 6b011110;
+      } else{
+        alu.alufn = 6b000000;
+      }
+      aexpected.d = alu.out[3:0];
+    }
+  
     case(state.q) {
       state.IDLE:
         if (st) {
+          smCounter.d = 4b0001;
           aqueue.d = 3;
           bqueue.d = 3;
           aa.d = random_generator.a;
@@ -108,7 +154,10 @@ module mojo_top (
         bb.d = bb.q;
         
         if (aenter) {
-          if (playerAi == aa.q + ab.q) {
+          alu.a = c{4b0000,aexpected.q};
+          alu.b = c{4b0, playerAi};
+          alu.alufn = 6b110011;
+          if (alu.out[0] == 1) {
             aqueue.d = aqueue.q - 1;
             bqueue.d = bqueue.q + 1;
           } else {
@@ -116,8 +165,12 @@ module mojo_top (
           }
           aa.d = random_generator.a;
           ab.d = random_generator.b;
+          
         } else if (benter) {
-          if (playerBi == ba.q + bb.q) {
+          alu.a = c{4b0,bexpected.q};
+          alu.b = c{4b0, playerBi};
+          alu.alufn = 6b110011;
+          if (alu.out[0] == 1) {
             aqueue.d = aqueue.q + 1;
             bqueue.d = bqueue.q - 1;
           } else {
@@ -125,6 +178,7 @@ module mojo_top (
           }
           ba.d = random_generator.a;
           bb.d = random_generator.b;
+
         }
         
         //for (i = 0; i < aqueue.q; i++) {
