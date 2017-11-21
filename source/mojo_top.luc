@@ -158,7 +158,10 @@ module mojo_top (
           alu.b = c{4b0, playerAi};
           alu.alufn = 6b110011;
           if (alu.out[0] == 1) {
-            aqueue.d = aqueue.q - 1;
+            if (aqueue.q > 0) {
+              aqueue.d = aqueue.q - 1;
+            }
+            
             bqueue.d = bqueue.q + 1;
           } else {
             aqueue.d = aqueue.q+1;
@@ -172,7 +175,10 @@ module mojo_top (
           alu.alufn = 6b110011;
           if (alu.out[0] == 1) {
             aqueue.d = aqueue.q + 1;
-            bqueue.d = bqueue.q - 1;
+            if (bqueue.q > 0) {
+              bqueue.d = bqueue.q - 1;
+            }
+            
           } else {
             bqueue.d = bqueue.q+1;
           }
